@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         if (positionTarget)
-            transform.position = positionTarget.transform.position;
+            transform.position = positionTarget.transform.position ;
         if (lookAtTarget)
             transform.LookAt(lookAtTarget.transform, Vector3.up);
     }
