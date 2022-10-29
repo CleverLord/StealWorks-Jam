@@ -80,8 +80,25 @@ public class ExpansionAlgorithm : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
         }
+        eap = ExpansionAlgorithmPhase.Spawning;
+        yield return new WaitForSeconds(t2);
 
+        points.ForEach(p => SpawnNagrobek(p.v3));
 
+    }
+    public GameObject Nagrobek;
+    GameObject nagrobekParent;
+    public void SpawnNagrobek(Vector3 position)
+    {
+        if (!nagrobekParent)
+            nagrobekParent = new GameObject("nagrobki");
+        int pattern = Random.Range(1, 5);
+        GameObject bob = Instantiate(Nagrobek, nagrobekParent.transform);
+        for (int i = 1; i < 5; i++)
+            if (i != pattern)
+                bob.transform.GetChild(i).gameObject.SetActive(false);
+        bob.transform.position = position;
+        bob.transform.rotation = Quaternion.Euler(Random.Range(-20, 20.0f), Random.Range(-20, 20.0f), Random.Range(-20, 20.0f));
     }
     static Vpoint randomUnitVpoint()
     {
