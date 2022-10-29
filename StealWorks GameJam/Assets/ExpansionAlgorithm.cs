@@ -92,14 +92,15 @@ public class ExpansionAlgorithm : MonoBehaviour
     {
         if (!nagrobekParent)
             nagrobekParent = new GameObject("nagrobki");
-        int pattern = Random.Range(1, 5);
+        int pattern = Random.Range(0, 3);
         GameObject bob = Instantiate(Nagrobek, nagrobekParent.transform);
         for (int i = 1; i < 5; i++)
         {
-            if (i != pattern)
-                bob.transform.GetChild(i).gameObject.SetActive(false);
-            else
+            if (pattern != 0 && i == pattern || i != pattern + 2)
                 bob.transform.GetChild(i).gameObject.SetActive(true);
+            else
+                bob.transform.GetChild(i).gameObject.SetActive(false);
+
 
         }
         bob.transform.position = position;
