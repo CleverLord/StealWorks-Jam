@@ -3,34 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public enum ExpansionAlgorithmPhase { Spawning, Extending, Reducing }
 public class ExpansionAlgorithm : MonoBehaviour
 {
-    public ExpansionAlgorithmPhase eap = ExpansionAlgorithmPhase.Spawning;
     public List<Vpoint> points = new List<Vpoint>();
     public int size = 10000;
-    public int pointsPerFrame;
     public float minDistance = 2f;
-    public float scaller = 1;
     float minDistanceSqrt;
     float thresholdDistanceSqrt;
-    public int iterationsPerFrame = 1;
-    public float t0 = 1;
-    public float t1 = 1;
-    public float t2 = 1;
+    public AnimationCurve ac;
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        //algorithm dont work if minDistance<1
-        while (minDistance < 1)
-        {
-            minDistance *= 10;
-            scaller /= 10;
-        }
         Vpoint.dist = minDistance * 6;
-        //yield return new WaitForSeconds(t0);
         thresholdDistanceSqrt = minDistance * minDistance * 0.9f;
         minDistanceSqrt = minDistance * minDistance;
+        yield return new WaitForEndOfFrame();
 
         for (int i = 0; i < size; i++)
         {
@@ -40,15 +27,10 @@ public class ExpansionAlgorithm : MonoBehaviour
                 targetVector = randomUnitVpoint();
 
             points.Add(targetVector);
-            if (i % pointsPerFrame == pointsPerFrame - 1 && i < 100)
-                yield return new WaitForEndOfFrame();
         }
-        eap = ExpansionAlgorithmPhase.Extending;
-        //yield return new WaitForSeconds(t1);
 
 
         bool anyModified = true;
-        int mods = iterationsPerFrame;
         int iteration = 0;
         while (anyModified)
         {
@@ -73,16 +55,8 @@ public class ExpansionAlgorithm : MonoBehaviour
                     }
                 }
             points.ForEach(p => p.Apply());
-            mods--;
-            if (mods == 0)
-            {
-                mods = iterationsPerFrame;
-                //yield return new WaitForEndOfFrame();
-            }
         }
-        eap = ExpansionAlgorithmPhase.Spawning;
-        //yield return new WaitForSeconds(t2);
-
+        points.ForEach(p => p.v3 += new Vector3(500, 0, 500));
         points.ForEach(p => SpawnNagrobek(p.v3.X0Z(Random.Range(-2, 0.0f))));
 
     }
@@ -90,21 +64,29 @@ public class ExpansionAlgorithm : MonoBehaviour
     GameObject nagrobekParent;
     public void SpawnNagrobek(Vector3 position)
     {
-        if (!nagrobekParent)
-            nagrobekParent = new GameObject("nagrobki");
-        int pattern = Random.Range(0, 3);
-        GameObject bob = Instantiate(Nagrobek, nagrobekParent.transform);
-        for (int i = 1; i < 5; i++)
+        RaycastHit hit;
+        if (Physics.Raycast(position + Vector3.up * 100, Vector3.down, out hit, 1000))
         {
-            if (pattern != 0 && i == pattern || i != pattern + 2)
-                bob.transform.GetChild(i).gameObject.SetActive(true);
-            else
-                bob.transform.GetChild(i).gameObject.SetActive(false);
+            position.y = hit.point.y;
+            if (!nagrobekParent)
+                nagrobekParent = new GameObject("nagrobki");
+            int pattern = Random.Range(0, 3);
+            GameObject bob = Instantiate(Nagrobek, nagrobekParent.transform);
+            for (int i = 1; i < 5; i++)
+            {
+                if (pattern != 0 && i == pattern || i != pattern + 2)
+                    bob.transform.GetChild(i).gameObject.SetActive(true);
+                else
+                    bob.transform.GetChild(i).gameObject.SetActive(false);
 
 
+            }
+
+            float rotationX = ac.Evaluate(Random.Range(0f, 1f));
+            float rotationZ = ac.Evaluate(Random.Range(0f, 1f));
+            bob.transform.position = position;
+            bob.transform.rotation = Quaternion.Euler(rotationX, Random.Range(-180, 180.0f), rotationZ);
         }
-        bob.transform.position = position;
-        bob.transform.rotation = Quaternion.Euler(Random.Range(-20, 20.0f), Random.Range(-20, 20.0f), Random.Range(-20, 20.0f));
     }
     static Vpoint randomUnitVpoint()
     {
