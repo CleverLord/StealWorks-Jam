@@ -13,12 +13,15 @@ public class GameManager : MonoBehaviour
     {
         
     }
-
     // Update is called once per frame
     void Update()
     {
         RenderSettings.fogColor = fogColor;
         Camera.main.backgroundColor = fogColor;
         RenderSettings.fogDensity = fogDencity;
+    }
+    public void ReduceFog()
+    {
+        LeanTween.value(fogDencity, 0.005f, 1).setOnUpdate((float val) =>{fogDencity = val;});
     }
 }

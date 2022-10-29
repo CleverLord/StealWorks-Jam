@@ -23,9 +23,9 @@ public class OrbitingBall : MonoBehaviour
         {
             orbiter = new GameObject("orbiter");
             orbiter.transform.parent = player.transform;
-            Vector3 dir = this.transform.position - player.transform.position;
-            orbiter.transform.position = dir.normalized * orbitingRadius+ player.transform.position;
-            orbiter.transform.position = new Vector3(orbiter.transform.position.x, orbitingHeight, orbiter.transform.position.z);
+            Vector3 dir = (this.transform.position - player.transform.position).X0Z();
+            orbiter.transform.localPosition = dir.normalized * orbitingRadius + Vector3.up*orbitingHeight;
+            //orbiter.transform.position = new Vector3(orbiter.transform.position.x, orbitingHeight, orbiter.transform.position.z);
         }
     }
 
