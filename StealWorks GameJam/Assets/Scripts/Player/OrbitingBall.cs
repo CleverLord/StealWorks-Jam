@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class OrbitingBall : MonoBehaviour
 {
+    public bool orbitPlayer = true;
+    public bool goToTarget = false;
+    public GameObject target;
+
+    public string key="red";
     public float orbitingRadius = 0.7f;
     public float orbitingHeight = 1f;
     public GameObject orbiter;
@@ -29,7 +34,11 @@ public class OrbitingBall : MonoBehaviour
     {
         if (isCloseToOrbit)
             orbiter.transform.RotateAround(player.transform.position, Vector3.up, angualarSpeed * Time.deltaTime);
-        MoveTowardsOrbit(); 
+        if(orbitPlayer)
+            MoveTowardsOrbit();
+        if (goToTarget)
+            MoveTowardsTarget();
+
     }
     public float maxSpeed = 1;
     public void MoveTowardsOrbit()
@@ -39,5 +48,11 @@ public class OrbitingBall : MonoBehaviour
             dir = dir.normalized * maxSpeed * Time.deltaTime;
         transform.position += dir;
     }
-
+    public void MoveTowardsTarget()
+    {
+        Vector3 dir = target.transform.position - transform.position;
+        if (dir.magnitude > maxSpeed * Time.deltaTime)
+            dir = dir.normalized * maxSpeed * Time.deltaTime;
+        transform.position += dir;
+    }
 }

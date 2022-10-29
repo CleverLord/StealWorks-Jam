@@ -27,7 +27,7 @@ public class ExpansionAlgorithm : MonoBehaviour
             minDistance *= 10;
             scaller /= 10;
         }
-        Vpoint.dist = minDistance*Mathf.Sqrt(size)/4;
+        Vpoint.dist = minDistance*6;
         yield return new WaitForSeconds(t0);
         thresholdDistanceSqrt = minDistance * minDistance * 0.9f;
         minDistanceSqrt = minDistance * minDistance;
@@ -38,14 +38,6 @@ public class ExpansionAlgorithm : MonoBehaviour
             Vpoint targetVector = randomUnitVpoint();
             while (targetVector.v3.sqrMagnitude > 1)
                 targetVector = randomUnitVpoint();
-            /*while (points.Any(v => (v - targetVector).sqrMagnitude < 0.0001) && overflow>0) {
-                targetVector = random1Vector3X0Z();
-                overflow--;
-                if (overflow <= 0)
-                    break;
-            }*/
-            //if (points.Any(v => (v.v3 - targetVector.v3).sqrMagnitude < 0.01))//distance < than 0.01*0.01 = 1/10000
-            //    continue;
 
             points.Add(targetVector);
             if (i % pointsPerFrame == pointsPerFrame - 1 && i<100)
@@ -54,17 +46,6 @@ public class ExpansionAlgorithm : MonoBehaviour
         eap = ExpansionAlgorithmPhase.Extending;
         yield return new WaitForSeconds(t1);
 
-        /* while(points.Any(v1 => points.Any(v2 => (v1 - v2).sqrMagnitude < thresholdDistanceSqrt))){ //any with any
-             for(int i=0;i<points.Count;i++)
-                 for(int j = 0; j < points.Count; j++)
-                 {
-                     Vector3 v1 = points[i];
-                     Vector3 v2 = points[j];
-                     //calculate the sqrtDistance
-                     float sqrtDist=
-
-                 }
-         }*/
 
         bool anyModified = true;
         int mods = iterationsPerFrame;
