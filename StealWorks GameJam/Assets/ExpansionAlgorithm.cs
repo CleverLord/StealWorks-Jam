@@ -27,8 +27,8 @@ public class ExpansionAlgorithm : MonoBehaviour
             minDistance *= 10;
             scaller /= 10;
         }
-        Vpoint.dist = minDistance*6;
-        yield return new WaitForSeconds(t0);
+        Vpoint.dist = minDistance * 6;
+        //yield return new WaitForSeconds(t0);
         thresholdDistanceSqrt = minDistance * minDistance * 0.9f;
         minDistanceSqrt = minDistance * minDistance;
 
@@ -40,11 +40,11 @@ public class ExpansionAlgorithm : MonoBehaviour
                 targetVector = randomUnitVpoint();
 
             points.Add(targetVector);
-            if (i % pointsPerFrame == pointsPerFrame - 1 && i<100)
+            if (i % pointsPerFrame == pointsPerFrame - 1 && i < 100)
                 yield return new WaitForEndOfFrame();
         }
         eap = ExpansionAlgorithmPhase.Extending;
-        yield return new WaitForSeconds(t1);
+        //yield return new WaitForSeconds(t1);
 
 
         bool anyModified = true;
@@ -66,7 +66,7 @@ public class ExpansionAlgorithm : MonoBehaviour
                     {
                         anyModified = true;
                         float realDist = Mathf.Sqrt(sqrtDist);
-                        float halfRealDelta = (realDist - minDistance)/2;
+                        float halfRealDelta = (realDist - minDistance) / 2;
                         //halfRealDelta = Mathf.Clamp(halfRealDelta, -0.1f, 0.1f);
                         v1.move((v2.v3 - v1.v3).normalized * halfRealDelta);
                         v2.move((v1.v3 - v2.v3).normalized * halfRealDelta);
@@ -77,13 +77,13 @@ public class ExpansionAlgorithm : MonoBehaviour
             if (mods == 0)
             {
                 mods = iterationsPerFrame;
-                yield return new WaitForEndOfFrame();
+                //yield return new WaitForEndOfFrame();
             }
         }
         eap = ExpansionAlgorithmPhase.Spawning;
-        yield return new WaitForSeconds(t2);
+        //yield return new WaitForSeconds(t2);
 
-        points.ForEach(p => SpawnNagrobek(p.v3));
+        points.ForEach(p => SpawnNagrobek(p.v3.X0Z(Random.Range(-2, 0.0f))));
 
     }
     public GameObject Nagrobek;
@@ -95,8 +95,13 @@ public class ExpansionAlgorithm : MonoBehaviour
         int pattern = Random.Range(1, 5);
         GameObject bob = Instantiate(Nagrobek, nagrobekParent.transform);
         for (int i = 1; i < 5; i++)
+        {
             if (i != pattern)
                 bob.transform.GetChild(i).gameObject.SetActive(false);
+            else
+                bob.transform.GetChild(i).gameObject.SetActive(true);
+
+        }
         bob.transform.position = position;
         bob.transform.rotation = Quaternion.Euler(Random.Range(-20, 20.0f), Random.Range(-20, 20.0f), Random.Range(-20, 20.0f));
     }
@@ -123,7 +128,7 @@ public class Vpoint
 {
     public Vector3 v3;
     public Vector3 delta;
-    public static float dist=1f;
+    public static float dist = 1f;
     public void Apply()
     {
         if (delta.magnitude < dist)
@@ -159,8 +164,8 @@ To make algorithm word minDist must be greater or eq than 1
 
 static class V3Ext
 {
-    public static Vector3 X0Z(this Vector3 v3)
+    public static Vector3 X0Z(this Vector3 v3, float y = 0)
     {
-        return new Vector3(v3.x, 0, v3.z);
+        return new Vector3(v3.x, y, v3.z);
     }
 }
