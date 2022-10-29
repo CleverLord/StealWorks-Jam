@@ -70,7 +70,7 @@ public class ExpansionAlgorithm : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(position + Vector3.up * 500, Vector3.down, out hit, 1000))
         {
-            position.y = hit.point.y;
+            position.y = hit.point.y - 2;
             if (!nagrobekParent)
                 nagrobekParent = new GameObject("nagrobki");
             int pattern = Random.Range(0, 3);
