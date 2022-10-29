@@ -11,9 +11,11 @@ public class ExpansionAlgorithm : MonoBehaviour
     float minDistanceSqrt;
     float thresholdDistanceSqrt;
     public AnimationCurve ac;
+    [SerializeField] int terrainSize = 3600;
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        terrainSize = terrainSize / 2;
         Vpoint.dist = minDistance * 6;
         thresholdDistanceSqrt = minDistance * minDistance * 0.9f;
         minDistanceSqrt = minDistance * minDistance;
@@ -56,7 +58,8 @@ public class ExpansionAlgorithm : MonoBehaviour
                 }
             points.ForEach(p => p.Apply());
         }
-        points.ForEach(p => p.v3 += new Vector3(500, 0, 500));
+        
+        points.ForEach(p => p.v3 += new Vector3(terrainSize, 0, terrainSize));
         points.ForEach(p => SpawnNagrobek(p.v3.X0Z(Random.Range(-2, 0.0f))));
 
     }
@@ -65,7 +68,7 @@ public class ExpansionAlgorithm : MonoBehaviour
     public void SpawnNagrobek(Vector3 position)
     {
         RaycastHit hit;
-        if (Physics.Raycast(position + Vector3.up * 100, Vector3.down, out hit, 1000))
+        if (Physics.Raycast(position + Vector3.up * 500, Vector3.down, out hit, 1000))
         {
             position.y = hit.point.y;
             if (!nagrobekParent)
@@ -83,9 +86,9 @@ public class ExpansionAlgorithm : MonoBehaviour
             }
 
             float rotationX = ac.Evaluate(Random.Range(0f, 1f));
-            float rotationZ = ac.Evaluate(Random.Range(0f, 1f));
+            //float rotationZ = ac.Evaluate(Random.Range(0f, 1f));
             bob.transform.position = position;
-            bob.transform.rotation = Quaternion.Euler(rotationX, Random.Range(-180, 180.0f), rotationZ);
+            bob.transform.rotation = Quaternion.Euler(rotationX, Random.Range(-180, 180.0f), Random.Range(-10, 10.0f));
         }
     }
     static Vpoint randomUnitVpoint()
