@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     void UpdatePosition()
     {
         Vector3 v3In = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        transform.Translate(v3In * speed * Time.deltaTime);
+        transform.Translate(v3In * speed);
         transform.Rotate(Vector3.up, Input.GetAxis("Mouse X"));
     }
 }
