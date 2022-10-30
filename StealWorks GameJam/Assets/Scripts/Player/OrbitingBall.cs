@@ -44,8 +44,11 @@ public class OrbitingBall : MonoBehaviour
     public void MoveTowardsOrbit()
     {
         Vector3 dir = orbiter.transform.position - transform.position;
-        if (dir.magnitude > maxSpeed * Time.deltaTime)
-            dir = dir.normalized * maxSpeed * Time.deltaTime;
+        if(dir.magnitude<maxSpeed)
+            if (dir.magnitude > maxSpeed * Time.deltaTime)
+                dir = dir.normalized * maxSpeed * Time.deltaTime;
+        if (dir.magnitude >= maxSpeed)
+            dir = dir.normalized * (dir.magnitude-maxSpeed);
         transform.position += dir;
     }
     public void MoveTowardsTarget()
