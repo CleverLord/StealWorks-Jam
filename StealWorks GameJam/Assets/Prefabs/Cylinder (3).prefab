@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1740749622}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,9 +172,9 @@ GameObject:
   - component: {fileID: 1869735445183046670}
   - component: {fileID: 1869735445183046705}
   - component: {fileID: 1869735445183046704}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RedAttractor
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11744,7 +11744,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1684
+  m_VersionIndex: 1687
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -11861,9 +11861,9 @@ GameObject:
   - component: {fileID: 821157953314523987}
   - component: {fileID: 5628657542313365462}
   - component: {fileID: 6529011386077817680}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder (3)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13578,131 +13578,11 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 367
+  m_VersionIndex: 254
   m_IsSelectable: 1
-  m_SelectedFaces: 26000000250000002400000023000000270000002200000014000000210000001500000016000000200000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f000000
-  m_SelectedEdges:
-  - a: 190
-    b: 189
-  - a: 189
-    b: 188
-  - a: 188
-    b: 190
-  - a: 184
-    b: 183
-  - a: 183
-    b: 182
-  - a: 182
-    b: 184
-  - a: 178
-    b: 177
-  - a: 177
-    b: 176
-  - a: 176
-    b: 178
-  - a: 172
-    b: 171
-  - a: 171
-    b: 170
-  - a: 170
-    b: 172
-  - a: 196
-    b: 195
-  - a: 195
-    b: 194
-  - a: 194
-    b: 196
-  - a: 166
-    b: 165
-  - a: 165
-    b: 164
-  - a: 164
-    b: 166
-  - a: 82
-    b: 81
-  - a: 81
-    b: 80
-  - a: 80
-    b: 82
-  - a: 160
-    b: 159
-  - a: 159
-    b: 158
-  - a: 158
-    b: 160
-  - a: 88
-    b: 87
-  - a: 87
-    b: 86
-  - a: 86
-    b: 88
-  - a: 94
-    b: 93
-  - a: 93
-    b: 92
-  - a: 92
-    b: 94
-  - a: 154
-    b: 153
-  - a: 153
-    b: 152
-  - a: 152
-    b: 154
-  - a: 100
-    b: 99
-  - a: 99
-    b: 98
-  - a: 98
-    b: 100
-  - a: 106
-    b: 105
-  - a: 105
-    b: 104
-  - a: 104
-    b: 106
-  - a: 112
-    b: 111
-  - a: 111
-    b: 110
-  - a: 110
-    b: 112
-  - a: 118
-    b: 117
-  - a: 117
-    b: 116
-  - a: 116
-    b: 118
-  - a: 124
-    b: 123
-  - a: 123
-    b: 122
-  - a: 122
-    b: 124
-  - a: 130
-    b: 129
-  - a: 129
-    b: 128
-  - a: 128
-    b: 130
-  - a: 136
-    b: 135
-  - a: 135
-    b: 134
-  - a: 134
-    b: 136
-  - a: 142
-    b: 141
-  - a: 141
-    b: 140
-  - a: 140
-    b: 142
-  - a: 148
-    b: 147
-  - a: 147
-    b: 146
-  - a: 146
-    b: 148
-  m_SelectedVertices: be000000bd000000bc000000b8000000b7000000b6000000b2000000b1000000b0000000ac000000ab000000aa000000c4000000c3000000c2000000a6000000a5000000a4000000520000005100000050000000a00000009f0000009e0000005800000057000000560000005e0000005d0000005c0000009a00000099000000980000006400000063000000620000006a0000006900000068000000700000006f0000006e0000007600000075000000740000007c0000007b0000007a0000008200000081000000800000008800000087000000860000008e0000008d0000008c000000940000009300000092000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!114 &1176038033555502502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13889,6 +13769,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RedOrb Sihn
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698600991090771729, guid: d4c182ef4a8c8e640a3bdcf0f1052f9a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698600991090771729, guid: d4c182ef4a8c8e640a3bdcf0f1052f9a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4c182ef4a8c8e640a3bdcf0f1052f9a, type: 3}

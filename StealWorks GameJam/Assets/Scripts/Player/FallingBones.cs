@@ -5,16 +5,11 @@ using System.Linq;
 
 public class FallingBones : MonoBehaviour
 {
-    public GameObject killerObject;
     List<Rigidbody> boneObjects;
     int lastIdx = 0;
     private void Start()
     {
         Init();
-    }
-    private void Detonate()
-    {
-        killerObject.SetActive(true);
     }
     public void Die()
     {
@@ -50,7 +45,5 @@ public class FallingBones : MonoBehaviour
             //sc.radius = 0.01f;
             lastIdx = i;
         }
-        if (f == 1)
-            Detonate();
     }
 }

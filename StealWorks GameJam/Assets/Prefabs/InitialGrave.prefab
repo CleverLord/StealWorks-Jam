@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1188832879790707733}
   - component: {fileID: 2808996873914467802}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: InitialGrave
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355937880144910563}
-  m_LocalRotation: {x: 0.06003491, y: 0.8639418, z: -0.03466123, w: 0.4987976}
+  m_LocalRotation: {x: 0.060030773, y: 0.86394167, z: -0.034658823, w: 0.49879846}
   m_LocalPosition: {x: 1852.3156, y: 8.594318, z: 1808.998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 5975672909448570921}
   - component: {fileID: 5115491180961984555}
   - component: {fileID: 5155309264521500974}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 2988722021517132135}
   - component: {fileID: 2975039880892211052}
   - component: {fileID: 2002859101060395962}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ GameObject:
   - component: {fileID: 1901657504699917000}
   - component: {fileID: 7468870692368603175}
   - component: {fileID: 3322563971912649373}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +452,7 @@ GameObject:
   - component: {fileID: 2744007263390118068}
   - component: {fileID: 6439293615437107331}
   - component: {fileID: 1444251053869485355}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,7 +535,7 @@ GameObject:
   - component: {fileID: 6177736911904505715}
   - component: {fileID: 6156841998248892497}
   - component: {fileID: 7232054835943322801}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -618,7 +618,7 @@ GameObject:
   - component: {fileID: 7462685863827474908}
   - component: {fileID: 2455680676448312432}
   - component: {fileID: 6856889678832321957}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Backplates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -697,6 +697,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1188832879790707733}
     m_Modifications:
+    - target: {fileID: 4749906111151721556, guid: 9d3afa61605a36f43b0fface5b522e09,
+        type: 3}
+      propertyPath: orbitingHeight
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4749906111151721896, guid: 9d3afa61605a36f43b0fface5b522e09,
         type: 3}
       propertyPath: m_RootOrder
@@ -756,6 +761,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RedOrb
+      objectReference: {fileID: 0}
+    - target: {fileID: 4749906111151721897, guid: 9d3afa61605a36f43b0fface5b522e09,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d3afa61605a36f43b0fface5b522e09, type: 3}
