@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     CharacterController cc;
     public GameObject cameraParent;
     Vector3 lookVector = new Vector3(0,0,0);
-    public static float lifeTime = 30;
+    public static float lifeTime = 120;
     public UnityEvent onDeadTouchedGround; 
     public bool dead = false; 
     public bool deadTouchedGround = false;
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (deadTouchedGround) return;
-            UpdatePosition();
+        UpdatePosition();
         
         //transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * mouseSpeedX);
         //cameraPivot.transform.Rotate(Vector3.right, Input.GetAxis("Mouse Y") * mouseSpeedY * (invertY ? 1:-1));
@@ -63,6 +63,13 @@ public class PlayerMovement : MonoBehaviour
     Vector3 v3In;
     void UpdatePosition()
     {
+        if (!dead)
+        {
+            if (!cc.isGrounded)
+                gSpeed += (Time.deltaTime * Physics.gravity.y);
+            else
+                gSpeed = 0f;
+        }
         if (!dead)
         {
             v3In = cameraParent.transform.right * Input.GetAxis("Horizontal") + cameraParent.transform.forward * Input.GetAxis("Vertical");
