@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        lookVector = transform.forward;
         cc = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -47,7 +48,10 @@ public class PlayerMovement : MonoBehaviour
         {
             deadTouchedGround = true;
             Die2();
-            onDeadTouchedGround?.Invoke();
+            if (Time.time <= lifeTime)
+                onDeadTouchedGround?.Invoke();
+            else
+                onTimeout?.Invoke();
         }
 
         if (deadTouchedGround) return;
