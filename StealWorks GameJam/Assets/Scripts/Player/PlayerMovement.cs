@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float mouseSpeedX = 1;
     public float mouseSpeedY = 1;
     public bool invertY;
-    private float gSpeed = 0f;
+    public  float gSpeed = 0f;
     CharacterController cc;
     public GameObject cameraParent;
     Vector3 lookVector = new Vector3(0,0,0);
@@ -63,13 +63,10 @@ public class PlayerMovement : MonoBehaviour
     Vector3 v3In;
     void UpdatePosition()
     {
-        if (!dead)
-        {
-            if (!cc.isGrounded)
-                gSpeed += (Time.deltaTime * Physics.gravity.y);
-            else
-                gSpeed = 0f;
-        }
+        if (!cc.isGrounded)
+            gSpeed += (Time.deltaTime * Physics.gravity.y);
+        else
+            gSpeed = 0f;
         if (!dead)
         {
             v3In = cameraParent.transform.right * Input.GetAxis("Horizontal") + cameraParent.transform.forward * Input.GetAxis("Vertical");
