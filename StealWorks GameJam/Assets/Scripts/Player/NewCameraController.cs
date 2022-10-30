@@ -10,6 +10,7 @@ public class NewCameraController : MonoBehaviour
     [SerializeField] GameObject cam;
     [SerializeField] GameObject player;
     [SerializeField] float playerSpeed;
+    [SerializeField] float cameraDistance = 4;
     void Start()
     {
         
@@ -35,6 +36,19 @@ public class NewCameraController : MonoBehaviour
         {
             // What happens when the angle is larger than 80
             cameraAnchor.transform.localEulerAngles = new Vector3(80, 0, 0);
+        }
+        int layer_mask = LayerMask.GetMask("Terrain");
+        RaycastHit hit;
+        if (Physics.Raycast(followObject.position, cam.transform.forward * -1, out hit, cameraDistance + 0.5f, layer_mask))
+        {
+                float dist = hit.distance - 0.5f;
+                if (dist > cameraDistance)
+                    dist = cameraDistance;
+                cam.transform.localPosition = new Vector3(0, 0, -dist);
+        }
+        else if (cam.transform.localPosition.z < cameraDistance)
+        {
+            cam.transform.localPosition = new Vector3(0, 0, -cameraDistance);
         }
         cam.transform.LookAt(followObject);
     }
