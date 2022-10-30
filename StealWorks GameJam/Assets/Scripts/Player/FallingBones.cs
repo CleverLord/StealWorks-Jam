@@ -5,9 +5,27 @@ using System.Linq;
 
 public class FallingBones : MonoBehaviour
 {
+    public GameObject killerObject;
     List<Rigidbody> boneObjects;
     int lastIdx = 0;
-    void Start()
+    private void Start()
+    {
+        Init();
+    }
+    private void Detonate()
+    {
+        killerObject.SetActive(true);
+    }
+    public void Die()
+    {
+        boneObjects.ForEach(b =>
+        {
+            b.GetComponent<Rigidbody>().isKinematic = false;
+            b.GetComponent<Rigidbody>().useGravity = true;
+        });
+        this.enabled = false;
+    }
+    void Init()
     {
         //disable all colliders ffs
         //this.GetComponentsInChildren<Collider>().ToList().ForEach(c => c.isTrigger = true);
@@ -32,5 +50,7 @@ public class FallingBones : MonoBehaviour
             //sc.radius = 0.01f;
             lastIdx = i;
         }
+        if (f == 1)
+            Detonate();
     }
 }

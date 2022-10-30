@@ -13,8 +13,9 @@ public class PlayerMovement : MonoBehaviour
     public GameObject cameraParent;
     Vector3 lookVector = new Vector3(0,0,0);
     public static float lifeTime = 180;
-    public UnityAction onGameOver; //lose
-    public bool dead = false; //win
+    public UnityEvent onDeadTouchedGround; 
+    public bool dead = false; 
+    public bool deadTouchedGround = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,16 +24,29 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
-    public void OnDead()
+    public void Die()
     {
         dead = true;
+    }
+    public void Die2()
+    {
+        this.enabled = false;
+        cc.enabled = false;
+        var rb = this.gameObject.AddComponent<Rigidbody>();
+        rb.isKinematic = false;
+        rb.useGravity = true;
     }
     // Update is called once per frame
     
     void Update()
     {
         UpdatePosition();
+        if (dead && cc.isGrounded && !deadTouchedGround)
+        {
+            deadTouchedGround = true;
+            Die2();
+            onDeadTouchedGround?.Invoke();
+        }
         //transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * mouseSpeedX);
         //cameraPivot.transform.Rotate(Vector3.right, Input.GetAxis("Mouse Y") * mouseSpeedY * (invertY ? 1:-1));
     }
