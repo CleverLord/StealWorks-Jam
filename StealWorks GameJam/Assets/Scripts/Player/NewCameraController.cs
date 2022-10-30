@@ -11,6 +11,7 @@ public class NewCameraController : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] float playerSpeed;
     [SerializeField] float cameraDistance = 4;
+    [SerializeField] float step = 0.3f;
     void Start()
     {
         
@@ -19,6 +20,7 @@ public class NewCameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        ChangeCameraDistance(Input.GetAxis("Mouse ScrollWheel"));
         CameraRotation();
     }
 
@@ -51,5 +53,17 @@ public class NewCameraController : MonoBehaviour
             cam.transform.localPosition = new Vector3(0, 0, -cameraDistance);
         }
         cam.transform.LookAt(followObject);
+    }
+
+    public void ChangeCameraDistance(float value)
+    {
+        cameraDistance *= (1 - step * value);
+        if (cameraDistance < 0.7f)
+        {
+            cameraDistance = 0.7f;
+        } else if (cameraDistance > 20f)
+        {
+            cameraDistance = 20f;
+        }
     }
 }
