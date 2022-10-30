@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float mouseSpeedX = 1;
     public float mouseSpeedY = 1;
     public bool invertY;
+    private float gSpeed = 0f;
     CharacterController cc;
     public GameObject cameraParent;
     Vector3 lookVector = new Vector3(0,0,0);
@@ -60,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
                 lookVector = v3In;
         }
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookVector.normalized, Vector3.up), 0.1f);
-        //transform.Translate(v3In * speed*Time.deltaTime);
-        cc.SimpleMove(v3In * speed);
+        cc.Move((Vector3.ClampMagnitude(v3In, 1) * speed - Vector3.down * gSpeed) * Time.deltaTime);
     }
 }
