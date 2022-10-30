@@ -20,6 +20,6 @@ public class BekonScript : MonoBehaviour
     public void AnimateLight()
     {
         spotLight.SetActive(true);
-        spotLight.LeanMoveLocalY(2, 2);
+        spotLight.LeanMoveLocalY(2, 1);
     }
 }
