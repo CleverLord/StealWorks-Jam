@@ -5,10 +5,27 @@ using System.Linq;
 
 public class FallingBones : MonoBehaviour
 {
+    public GameObject killerObject;
     List<Rigidbody> boneObjects;
-    public float time = 180;
     int lastIdx = 0;
-    void Start()
+    private void Start()
+    {
+        Init();
+    }
+    private void Detonate()
+    {
+        killerObject.SetActive(true);
+    }
+    public void Die()
+    {
+        boneObjects.ForEach(b =>
+        {
+            b.GetComponent<Rigidbody>().isKinematic = false;
+            b.GetComponent<Rigidbody>().useGravity = true;
+        });
+        this.enabled = false;
+    }
+    void Init()
     {
         //disable all colliders ffs
         //this.GetComponentsInChildren<Collider>().ToList().ForEach(c => c.isTrigger = true);
@@ -22,16 +39,18 @@ public class FallingBones : MonoBehaviour
     }
     private void Update()
     {
-        float f = Mathf.InverseLerp(0, time, Time.time);
+        float f = Mathf.InverseLerp(0, PlayerMovement.lifeTime, Time.time);
         for (int i = lastIdx; i <= f * boneObjects.Count && i < boneObjects.Count; i++)
         {
             boneObjects[i].isKinematic = false;
             boneObjects[i].useGravity = true;
-            boneObjects[i].transform.parent = null;
+            boneObjects[i].transform.parent = GameObject.Find("Enviro").transform;
             //boneObjects[i].GetComponentInChildren<MeshCollider>().isTrigger = false;
             //var sc= boneObjects[i].gameObject.AddComponent<SphereCollider>();
             //sc.radius = 0.01f;
             lastIdx = i;
         }
+        if (f == 1)
+            Detonate();
     }
 }

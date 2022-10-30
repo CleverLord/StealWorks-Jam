@@ -14,31 +14,52 @@ public class PlayerMovement : MonoBehaviour
     public GameObject cameraParent;
     Vector3 lookVector = new Vector3(0,0,0);
     public static float lifeTime = 180;
-    public UnityAction onDeath;
+    public UnityEvent onDeadTouchedGround; 
+    public bool dead = false; 
+    public bool deadTouchedGround = false;
 
+    // Start is called before the first frame update
     void Start()
     {
         cc = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
+    public void Die()
+    {
+        dead = true;
+    }
+    public void Die2()
+    {
+        this.enabled = false;
+        cc.enabled = false;
+        var rb = this.gameObject.AddComponent<Rigidbody>();
+        rb.isKinematic = false;
+        rb.useGravity = true;
+    }
+    // Update is called once per frame
+    
     void Update()
     {
         UpdatePosition();
+        if (dead && cc.isGrounded && !deadTouchedGround)
+        {
+            deadTouchedGround = true;
+            Die2();
+            onDeadTouchedGround?.Invoke();
+        }
+        //transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * mouseSpeedX);
+        //cameraPivot.transform.Rotate(Vector3.right, Input.GetAxis("Mouse Y") * mouseSpeedY * (invertY ? 1:-1));
     }
+    Vector3 v3In;
     void UpdatePosition()
     {
-        if (!cc.isGrounded)
+        if (!dead)
         {
-            gSpeed += Physics.gravity.y * Time.deltaTime;
-        } else
-        {
-            gSpeed = 0;
+            v3In = cameraParent.transform.right * Input.GetAxis("Horizontal") + cameraParent.transform.forward * Input.GetAxis("Vertical");
+            if (v3In.magnitude > 0.01)
+                lookVector = v3In;
         }
-        Vector3 v3In = cameraParent.transform.right* Input.GetAxis("Horizontal") + cameraParent.transform.forward * Input.GetAxis("Vertical");
-        if (v3In.magnitude > 0.01)
-            lookVector = v3In;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookVector.normalized, Vector3.up), 0.1f);
         cc.Move((Vector3.ClampMagnitude(v3In, 1) * speed - Vector3.down * gSpeed) * Time.deltaTime);
     }
